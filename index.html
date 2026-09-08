@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seberapa Kenal Kamu?</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #e9ecff, #f8f8ff);
+}
+
+.card {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  padding: 28px;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(0,0,0,.12);
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+  line-height: 1.5;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.answer {
+  background: #f5f5f5;
+  color: #222;
+  font-weight: normal;
+  border: 1px solid #ddd;
+}
+
+.hidden {
+  display: none;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 14px;
+}
+
+.big {
+  font-size: 55px;
+  font-weight: bold;
+  margin: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div id="start">
+    <div style="font-size:55px;">🧠</div>
+
+    <h1>Seberapa Kenal Kamu?</h1>
+
+    <p>
+      Coba jawab pertanyaan tentang gue.
+      Seberapa kenal kamu? 😭
+    </p>
+
+    <input
+      id="name"
+      placeholder="Masukkan nama kamu"
+      maxlength="30"
+    >
+
+    <button onclick="startQuiz()">
+      MULAI
+    </button>
+  </div>
+
+
+  <div id="quiz" class="hidden">
+
+    <div class="top">
+      <span id="number"></span>
+      <span id="score">Skor: 0</span>
+    </div>
+
+    <h2 id="question"></h2>
+
+    <div id="answers"></div>
+
+  </div>
+
+
+  <div id="result" class="hidden">
+
+    <div style="font-size:55px;">🎉</div>
+
+    <h1 id="resultName"></h1>
+
+    <div class="big" id="finalScore"></div>
+
+    <p id="message"></p>
+
+    <button onclick="location.reload()">
+      COBA LAGI
+    </button>
+
+    <button onclick="shareResult()">
+      BAGIKAN HASIL
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+  {
+    q: "Makanan favorit gue?",
+    a: ["Bakso", "Mie ayam", "Seblak", "Nasi goreng"],
+    c: 1
+  },
+
+  {
+    q: "Kalau lagi senggang, gue lebih pilih...",
+    a: ["Tidur", "Main game", "Jalan-jalan", "Belajar"],
+    c: 0
+  },
+
+  {
+    q: "Gue paling nggak suka kalau...",
+    a: ["Dicuekin", "Dipuji", "Diajak ngobrol", "Dikasih hadiah"],
+    c: 0
+  },
+
+  {
+    q: "Menurut kamu gue orangnya...",
+    a: ["Pendiam", "Santai", "Susah ditebak", "Semua bisa"],
+    c: 3
+  },
+
+  {
+    q: "Kalau diajak pergi mendadak, gue...",
+    a: ["Langsung gas", "Mikir dulu", "Nolak", "Tanya siapa yang ikut"],
+    c: 3
+  },
+
+  {
+    q: "Hal yang paling bikin gue senang?",
+    a: ["Diperhatiin", "Dapat uang", "Tidur", "Main sendiri"],
+    c: 0
+  },
+
+  {
+    q: "Kalau chat gue lama nggak dibalas, gue...",
+    a: ["Santai", "Kepikiran", "Spam", "Ikut nggak balas"],
+    c: 1
+  },
+
+  {
+    q: "Seberapa kenal kamu sama gue?",
+    a: ["Banget", "Lumayan", "Sedikit", "Nggak kenal 😭"],
+    c: 0
+  }
+
+];
+
+let current = 0;
+let score = 0;
+let player = "";
+
+
+function startQuiz() {
+
+  player =
+    document.getElementById("name").value.trim()
+    || "Kamu";
+
+  document.getElementById("start")
+    .classList.add("hidden");
+
+  document.getElementById("quiz")
+    .classList.remove("hidden");
+
+  showQuestion();
+}
+
+
+function showQuestion() {
+
+  let q = questions[current];
+
+  document.getElementById("number").innerText =
+    "Pertanyaan " +
+    (current + 1) +
+    "/" +
+    questions.length;
+
+  document.getElementById("score").innerText =
+    "Skor: " + score;
+
+  document.getElementById("question").innerText =
+    q.q;
+
+  document.getElementById("answers").innerHTML =
+    q.a.map((answer, i) =>
+
+      `<button
+        class="answer"
+        onclick="answer(${i})">
+        ${answer}
+      </button>`
+
+    ).join("");
+
+}
+
+
+function answer(index) {
+
+  if (
+    index ===
+    questions[current].c
+  ) {
+
+    score++;
+
+  }
+
+  current++;
+
+  if (
+    current <
+    questions.length
+  ) {
+
+    showQuestion();
+
+  } else {
+
+    finish();
+
+  }
+
+}
+
+
+function finish() {
+
+  document.getElementById("quiz")
+    .classList.add("hidden");
+
+  document.getElementById("result")
+    .classList.remove("hidden");
+
+  document.getElementById("resultName")
+    .innerText =
+    "Hasil untuk " + player;
+
+  document.getElementById("finalScore")
+    .innerText =
+    score + "/" + questions.length;
+
+
+  let percent =
+    score / questions.length * 100;
+
+
+  if (percent === 100) {
+
+    document.getElementById("message")
+      .innerText =
+      "ANJIR 😭 Kamu hafal banget sama gue! 🔥";
+
+  } else if (percent >= 75) {
+
+    document.getElementById("message")
+      .innerText =
+      "Wihh, ternyata kamu lumayan kenal sama gue 👀";
+
+  } else if (percent >= 50) {
+
+    document.getElementById("message")
+      .innerText =
+      "Lumayan lah 😭 masih harus lebih sering ngobrol.";
+
+  } else {
+
+    document.getElementById("message")
+      .innerText =
+      "Waduh 🗿 kayaknya kita harus lebih sering ngobrol.";
+
+  }
+
+}
+
+
+function shareResult() {
+
+  let text =
+    player +
+    " mendapat skor " +
+    score +
+    "/" +
+    questions.length +
+    " di kuis Seberapa Kenal Kamu? 😭";
+
+
+  if (navigator.share) {
+
+    navigator.share({
+      title: "Hasil Kuis",
+      text: text
+    });
+
+  } else {
+
+    navigator.clipboard.writeText(text);
+
+    alert("Hasil berhasil disalin!");
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
