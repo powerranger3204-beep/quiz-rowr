@@ -3,134 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seberapa Kamu Kenal Saya? 💗</title>
+<title>Seberapa Kamu Kenal Saya? 🤗💗</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+*{
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ffb6d9, #c8b6ff, #a8e6ff);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(135deg,#ff9dcc,#c8b6ff,#9eeaff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 }
 
-/* Hiasan lucu */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  border-radius: 50%;
-  z-index: 0;
+.container{
+  width:100%;
+  max-width:500px;
+  background:white;
+  padding:28px;
+  border-radius:30px;
+  box-shadow:0 15px 40px #0003;
+  text-align:center;
 }
 
-body::before {
-  width: 180px;
-  height: 180px;
-  background: #ff8fc7;
-  top: -60px;
-  left: -50px;
+h1{
+  color:#ff4f9a;
 }
 
-body::after {
-  width: 220px;
-  height: 220px;
-  background: #a98cff;
-  bottom: -80px;
-  right: -60px;
+h2{
+  color:#333;
 }
 
-.container {
-  position: relative;
-  z-index: 2;
-  width: 92%;
-  max-width: 500px;
-  background: rgba(255,255,255,0.93);
-  padding: 28px;
-  border-radius: 30px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-  text-align: center;
+.emoji{
+  font-size:55px;
 }
 
-h1 {
-  color: #ff4f9a;
-  margin-bottom: 10px;
+input{
+  width:100%;
+  padding:15px;
+  border:2px solid #ffb0d3;
+  border-radius:15px;
+  font-size:16px;
+  margin:12px 0;
 }
 
-h2 {
-  color: #333;
+button{
+  width:100%;
+  padding:15px;
+  margin:7px 0;
+  border:0;
+  border-radius:15px;
+  background:#ff5ca8;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
 }
 
-p {
-  color: #555;
+.answer{
+  background:#ead8ff;
+  color:#333;
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  border: 2px solid #ffb0d3;
-  border-radius: 15px;
-  outline: none;
-  font-size: 16px;
-  margin: 15px 0;
+.hidden{
+  display:none;
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin: 7px 0;
-  border: none;
-  border-radius: 15px;
-  background: #ff69a9;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  transform: scale(1.03);
-  background: #ff4f98;
-}
-
-.answer {
-  background: #f5e8ff;
-  color: #444;
-}
-
-.answer:hover {
-  background: #e8d2ff;
-}
-
-.hidden {
-  display: none;
-}
-
-#nomor {
-  color: #ff4f9a;
-  font-weight: bold;
-}
-
-.score {
-  font-size: 55px;
-  font-weight: bold;
-  color: #ff4f9a;
-}
-
-.emoji {
-  font-size: 55px;
-}
-
-.small {
-  font-size: 13px;
-  color: #777;
+.score{
+  font-size:60px;
+  font-weight:bold;
+  color:#ff4f9a;
 }
 </style>
 </head>
@@ -139,294 +85,326 @@ button:hover {
 
 <div class="container">
 
-  <!-- HALAMAN AWAL -->
-  <div id="start">
-    <div class="emoji">🎀✨</div>
+<!-- AWAL -->
+<div id="start">
 
-    <h1>Seberapa Kamu<br>Kenal Saya? 😭</h1>
+<div class="emoji">🎀✨</div>
 
-    <p>
-      Coba buktikan seberapa kenal kamu sama saya! 👀
-    </p>
+<h1>
+Seberapa Kamu<br>
+Kenal Saya? 😭
+</h1>
 
-    <p class="small">
-      ⚠️ Hati-hati... salah jawab bisa bikin malu sendiri 😭
-    </p>
+<p>
+Coba buktiin seberapa kenal kamu sama saya! 👀
+</p>
 
-    <input
-      type="text"
-      id="nama"
-      placeholder="Masukkan nama kamu..."
-    >
+<input
+id="nama"
+placeholder="Nama kamu..."
+>
 
-    <button onclick="mulaiGame()">
-      MULAI GAME 🚀
-    </button>
-  </div>
+<button onclick="mulai()">
+🚀 MULAI GAME
+</button>
 
-
-  <!-- HALAMAN SOAL -->
-  <div id="game" class="hidden">
-
-    <p id="nomor"></p>
-
-    <h2 id="pertanyaan"></h2>
-
-    <div id="jawaban"></div>
-
-  </div>
+</div>
 
 
-  <!-- HALAMAN HASIL -->
-  <div id="hasil" class="hidden">
+<!-- GAME -->
+<div id="game" class="hidden">
 
-    <div class="emoji">🎉😭</div>
+<p id="nomor"></p>
 
-    <h1>Hasil Kamu!</h1>
+<h2 id="soal"></h2>
 
-    <p id="pesan"></p>
+<div id="jawaban"></div>
 
-    <div class="score" id="nilai"></div>
+</div>
 
-    <p id="benar"></p>
 
-    <button onclick="location.reload()">
-      MAIN LAGI 🔄
-    </button>
+<!-- HASIL -->
+<div id="hasil" class="hidden">
 
-  </div>
+<div class="emoji">🎉😭</div>
+
+<h1>HASIL KAMU!</h1>
+
+<div class="score" id="score"></div>
+
+<p id="pesan"></p>
+
+<button onclick="location.reload()">
+🔄 MAIN LAGI
+</button>
+
+</div>
 
 </div>
 
 
 <script>
 
-const soal = [
+const pertanyaan = [
 
-  {
-    tanya: "🍜 Makanan yang paling saya suka?",
-    pilihan: [
-      "Bakso",
-      "Mie ayam",
-      "Nasi goreng",
-      "Seblak"
-    ],
-    benar: "Mie ayam"
-  },
+{
+soal:"🍜 Makanan yang paling saya suka?",
+jawaban:[
+"Bakso",
+"Mie ayam",
+"Nasi goreng",
+"Seblak"
+],
+benar:"Mie ayam"
+},
 
-  {
-    tanya: "🧋 Minuman yang paling saya suka?",
-    pilihan: [
-      "Es teh",
-      "Kopi",
-      "Jus jeruk",
-      "Susu"
-    ],
-    benar: "Es teh"
-  },
+{
+soal:"🧋 Minuman yang paling saya suka?",
+jawaban:[
+"Es teh",
+"Kopi",
+"Jus",
+"Susu"
+],
+benar:"Es teh"
+},
 
-  {
-    tanya: "🖤 Warna favorit saya?",
-    pilihan: [
-      "Merah",
-      "Biru",
-      "Hitam",
-      "Pink"
-    ],
-    benar: "Hitam"
-  },
+{
+soal:"🖤 Warna favorit saya?",
+jawaban:[
+"Merah",
+"Biru",
+"Hitam",
+"Pink"
+],
+benar:"Hitam"
+},
 
-  {
-    tanya: "🎮 Game yang paling saya suka?",
-    pilihan: [
-      "Free Fire",
-      "PUBG",
-      "Mobile Legends",
-      "Minecraft"
-    ],
-    benar: "Mobile Legends"
-  },
+{
+soal:"🎮 Game yang paling saya suka?",
+jawaban:[
+"Free Fire",
+"PUBG",
+"Mobile Legends",
+"Minecraft"
+],
+benar:"Mobile Legends"
+},
 
-  {
-    tanya: "🏊 Olahraga yang saya suka?",
-    pilihan: [
-      "Sepak bola",
-      "Renang",
-      "Basket",
-      "Lari"
-    ],
-    benar: "Renang"
-  },
+{
+soal:"🏊 Olahraga yang saya suka?",
+jawaban:[
+"Sepak bola",
+"Renang",
+"Basket",
+"Lari"
+],
+benar:"Renang"
+},
 
-  {
-    tanya: "🐱 Hewan yang saya suka?",
-    pilihan: [
-      "Anjing",
-      "Kucing",
-      "Kelinci",
-      "Hamster"
-    ],
-    benar: "Kucing"
-  },
+{
+soal:"🐱 Hewan yang saya suka?",
+jawaban:[
+"Anjing",
+"Kucing",
+"Kelinci",
+"Hamster"
+],
+benar:"Kucing"
+},
 
-  {
-    tanya: "🎤 Penyanyi yang saya pilih?",
-    pilihan: [
-      "Keizer",
-      "Rhoma Irama",
-      "Ariel NOAH",
-      "Iwan Fals"
-    ],
-    benar: "Rhoma Irama"
-  },
+{
+soal:"🎤 lagu yang saya sukai apa yaa🤔?",
+jawaban:[
+"Keizer",
+"teh hijau",
+"Ariel NOAH",
+"Iwan Fals"
+],
+benar:"teh hijau"
+},
 
-  {
-    tanya: "👻 Genre film yang saya suka?",
-    pilihan: [
-      "Romantis",
-      "Komedi",
-      "Horor",
-      "Action"
-    ],
-    benar: "Horor"
-  },
+{
+soal:"👻 Genre film yang saya suka?",
+jawaban:[
+"Romantis",
+"Komedi",
+"Horor",
+"Action"
+],
+benar:"Horor"
+},
 
-  {
-    tanya: "📍 Kota yang berhubungan dengan saya?",
-    pilihan: [
-      "Jakarta",
-      "Bandung",
-      "Bandar Lampung",
-      "Surabaya"
-    ],
-    benar: "Bandar Lampung"
-  },
+{
+soal:"📍 Kota yang berhubungan dengan saya?",
+jawaban:[
+"Jakarta",
+"Bandung",
+"Bandar Lampung",
+"Surabaya"
+],
+benar:"Bandar Lampung"
+},
 
-  {
-    tanya: "💬 Hal yang paling bikin kesel?",
-    pilihan: [
-      "Ditelepon terus",
-      "Di-chat tapi cuma di-read",
-      "Diajak jalan",
-      "Dikasih hadiah"
-    ],
-    benar: "Di-chat tapi cuma di-read"
-  },
+{
+soal:"💬 Hal yang paling bikin kesel?",
+jawaban:[
+"Ditelepon terus",
+"Di-chat tapi cuma di-read",
+"Diajak jalan",
+"Dikasih hadiah"
+],
+benar:"Di-chat tapi cuma di-read"
+},
 
-  {
-    tanya: "🎉 Kalau ada yang bilang 'noleb', maksudnya?",
-    pilihan: [
-      "No Lebay",
-      "Nonton Lebih",
-      "Nongkrong Lebih",
-      "No Lebih"
-    ],
-    benar: "No Lebay"
-  }
+{
+soal:"🎉 Apa arti 'noleb'?",
+jawaban:[
+"No Lebay",
+"Nonton Lebih",
+"Nongkrong Lebih",
+"No Lebih"
+],
+benar:"No Lebay"
+}
 
 ];
 
-let nomor = 0;
-let skor = 0;
-let nama = "";
+
+let posisi=0;
+let benar=0;
+let nama="";
 
 
-function mulaiGame() {
+function mulai(){
 
-  nama = document.getElementById("nama").value.trim();
+nama=document.getElementById("nama").value.trim();
 
-  if (nama === "") {
-    alert("Isi nama kamu dulu dong 😭");
-    return;
-  }
+if(nama===""){
+alert("Isi nama kamu dulu 😭");
+return;
+}
 
-  document.getElementById("start").classList.add("hidden");
-  document.getElementById("game").classList.remove("hidden");
+document.getElementById("start")
+.classList.add("hidden");
 
-  tampilkanSoal();
+document.getElementById("game")
+.classList.remove("hidden");
+
+tampilkan();
+
 }
 
 
-function tampilkanSoal() {
+function tampilkan(){
 
-  const data = soal[nomor];
+let data=pertanyaan[posisi];
 
-  document.getElementById("nomor").innerText =
-    "Soal " + (nomor + 1) + " dari " + soal.length;
+document.getElementById("nomor").innerText=
+"Soal "+(posisi+1)+" dari "+pertanyaan.length;
 
-  document.getElementById("pertanyaan").innerText =
-    data.tanya;
+document.getElementById("soal").innerText=
+data.soal;
 
-  const tempatJawaban =
-    document.getElementById("jawaban");
+let box=document.getElementById("jawaban");
 
-  tempatJawaban.innerHTML = "";
+box.innerHTML="";
 
-  data.pilihan.forEach(function(pilihan) {
 
-    const tombol = document.createElement("button");
+data.jawaban.forEach(function(pilihan){
 
-    tombol.innerText = pilihan;
-    tombol.className = "answer";
+let tombol=document.createElement("button");
 
-    tombol.onclick = function() {
-      jawab(pilihan);
-    };
+tombol.innerText=pilihan;
 
-    tempatJawaban.appendChild(tombol);
+tombol.className="answer";
 
-  });
+tombol.onclick=function(){
+
+jawab(pilihan);
+
+};
+
+box.appendChild(tombol);
+
+});
+
 }
 
 
-function jawab(pilihan) {
+function jawab(pilihan){
 
-  if (pilihan === soal[nomor].benar) {
-    skor++;
-  }
+if(pilihan===pertanyaan[posisi].benar){
 
-  nomor++;
+benar++;
 
-  if (nomor < soal.length) {
-    tampilkanSoal();
-  } else {
-    tampilkanHasil();
-  }
+}
+
+posisi++;
+
+if(posisi<pertanyaan.length){
+
+tampilkan();
+
+}else{
+
+hasil();
+
+}
+
 }
 
 
-function tampilkanHasil() {
+function hasil(){
 
-  document.getElementById("game").classList.add("hidden");
-  document.getElementById("hasil").classList.remove("hidden");
+document.getElementById("game")
+.classList.add("hidden");
 
-  const nilai = Math.round((skor / soal.length) * 100);
+document.getElementById("hasil")
+.classList.remove("hidden");
 
-  document.getElementById("nilai").innerText =
-    nilai + "%";
+let nilai=Math.round(
+benar/pertanyaan.length*100
+);
 
-  document.getElementById("benar").innerText =
-    nama + ", kamu benar " + skor + " dari " + soal.length + " soal!";
+document.getElementById("score")
+.innerText=nilai+"%";
 
-  let pesan = "";
 
-  if (nilai === 100) {
-    pesan = "GILA 😭❤️ Kamu kenal saya banget!";
-  }
-  else if (nilai >= 80) {
-    pesan = "WADUH 😭 Kamu ternyata lumayan kenal saya!";
-  }
-  else if (nilai >= 60) {
-    pesan = "Hmmmm... masih lumayan lah 😭";
-  }
-  else if (nilai >= 40) {
-    pesan = "Kita kayaknya harus lebih sering ngobrol 😭";
-  }
-  else {
-    pesan = "SIAPA KAMU 😭😭 Kok nggak kenal saya sama sekali?";
-  }
+let pesan="";
 
-  document.getElementById("pesan").innerText = pesan;
+if(nilai===100){
+
+pesan=
+"GILAAA 😭❤️ KAMU KENAL SAYA BANGET!";
+
+}else if(nilai>=80){
+
+pesan=
+"WADUH 😭 KAMU TERNYATA KENAL BANGET!";
+
+}else if(nilai>=60){
+
+pesan=
+"LUMAYAN LAH 😭";
+
+}else if(nilai>=40){
+
+pesan=
+"KITA HARUS LEBIH SERING NGOBROL 😭";
+
+}else{
+
+pesan=
+"SIAPA KAMU 😭😭";
+
+}
+
+
+document.getElementById("pesan")
+.innerText=
+nama+" — "+pesan;
+
 }
 
 </script>
